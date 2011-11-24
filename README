@@ -1,0 +1,31 @@
+Usage:
+
+Add the following lines in web.config or app.config, inside <configuration></configuration>:
+
+<system.diagnostics>
+        <trace autoflush="true" />
+        <sources>
+			<!-- Configured for WCF services -->
+            <source name="System.ServiceModel" switchValue="Error, Critical"
+                            propagateActivity="true">
+                <listeners>
+                    <add name="Email" type="CustomEmailTraceListener.EmailTraceListener, CustomEmailTraceListener"
+                         fromAddress=""
+                         toAddress=""
+                         subject="">
+                        <filter type="" />
+                    </add>
+                </listeners>
+            </source>
+        </sources>
+    </system.diagnostics>
+ 
+    <system.net>
+        <mailSettings>
+            <smtp deliveryMethod="Network">
+                <network host="[smtp host]" defaultCredentials="false"
+                     port="" enableSsl="true" 
+                         userName="[email]" password="[password]"/>
+            </smtp>
+        </mailSettings>
+    </system.net>
